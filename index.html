@@ -414,6 +414,37 @@
               <input id="clientPhoneInput" type="tel" required placeholder="Phone (630 / 312 / 773 / 847) *" data-i18n-placeholder="ph_phone" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-sky-400">
               <input id="clientZipInput" type="text" required placeholder="Property Zip / Suburb *" data-i18n-placeholder="ph_zip" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-sky-400">
             </div>
+            <div class="bg-slate-900/90 border border-slate-700/90 rounded-xl p-3 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <label for="preferredDateInput" class="text-[11px] font-bold uppercase tracking-wider text-sky-400" data-i18n="sched_label">Preferred Date &amp; Arrival Window</label>
+                <span id="dailyCapBadge" class="text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full" data-i18n="sched_cap_badge">Max 3–4 Jobs/Day</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div>
+                  <span class="block text-[10px] text-slate-400 mb-1" data-i18n="sched_date_sub">Select Day *</span>
+                  <input id="preferredDateInput" name="preferred_date" type="date" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400">
+                </div>
+                <div>
+                  <span class="block text-[10px] text-slate-400 mb-1" data-i18n="sched_time_sub">Time Slot / Shift *</span>
+                  <select id="preferredTimeSelect" name="preferred_time_slot" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none focus:border-sky-400">
+                    <optgroup id="optGroupDay" label="Daytime Route (8:00 AM – 5:00 PM • Max 4/Day)">
+                      <option value="day_8_1030" data-i18n="slot_day1">8:00 AM – 10:30 AM (Block 1 — Morning)</option>
+                      <option value="day_1030_1" data-i18n="slot_day2">10:30 AM – 1:00 PM (Block 2 — Mid-Day)</option>
+                      <option value="day_1_3" data-i18n="slot_day3">1:00 PM – 3:00 PM (Block 3 — Afternoon)</option>
+                      <option value="day_3_5" data-i18n="slot_day4">3:00 PM – 5:00 PM (Block 4 — Ends 5:00 PM)</option>
+                    </optgroup>
+                    <optgroup id="optGroupComm" label="Commercial / Plaza / Pressure Wash (Zero Foot Traffic)">
+                      <option value="night_after_6pm" data-i18n="slot_night">🌙 Night / After-Hours (After 6:00 PM — Empty Plaza)</option>
+                      <option value="early_530_8am" data-i18n="slot_early">🌅 Early Bird Commercial (5:30 AM – 8:00 AM — Before Open)</option>
+                      <option value="weekend_sat_sun" data-i18n="slot_weekend">📅 Weekend Special (Sat / Sun — Low Traffic / Off-Hours)</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <p id="scheduleSmartNote" class="text-[11px] text-slate-300 leading-snug bg-slate-950/80 border border-slate-800 rounded-lg px-2.5 py-1.5" data-i18n="sched_note_day">
+                ☀️ Daytime route: Limited to 3–4 jobs per day between 8:00 AM and 5:00 PM for guaranteed punctuality.
+              </p>
+            </div>
             <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3.5 rounded-xl shadow-lg transition text-sm flex items-center justify-center gap-2">
               <span data-i18n="form_submit_btn">Reserve My Estimate & Get Text Confirmation</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -543,6 +574,15 @@
             <option data-i18n="modal_opt3">Retail Strip Plaza / HOA</option>
             <option data-i18n="modal_opt4">Restaurant / Dealership</option>
             <option data-i18n="modal_opt5">Commercial Pressure Washing / Concrete &amp; Siding</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <input id="commDateInput" name="preferred_date" type="date" required class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-700">
+          <select id="commShiftSelect" name="preferred_shift" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-slate-700">
+            <option value="Night / After-Hours (After 6:00 PM - No People)" data-i18n="modal_shift_night">🌙 Night / After-Hours (After 6 PM — No Traffic)</option>
+            <option value="Weekend (Sat / Sun - Off-Hours)" data-i18n="modal_shift_wknd">📅 Weekend (Sat / Sun — Low Foot Traffic)</option>
+            <option value="Early Morning (5:30 AM - 8:00 AM)" data-i18n="modal_shift_early">🌅 Early Morning (5:30 AM – 8:00 AM)</option>
+            <option value="Daytime (8:00 AM - 5:00 PM)" data-i18n="modal_shift_day">☀️ Standard Daytime (8:00 AM – 5:00 PM)</option>
           </select>
         </div>
         <button type="submit" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 rounded-xl text-sm transition" data-i18n="modal_submit">Send Commercial Bid Request</button>
@@ -976,7 +1016,23 @@
         quote_live_tag: "Presupuesto Instantáneo Garantizado",
         coi_badge: "Asegurado COI",
         quote_est_label: "Total Estimado del Servicio",
-        form_head: "Asegura Este Presupuesto y Agenda Tu Fecha Preferida:",
+        form_head: "Asegura Este Presupuesto y Agenda Tu Fecha y Hora:",
+        sched_label: "Fecha Preferida y Bloque de Horario",
+        sched_cap_badge: "Máx. 3–4 Trabajos/Día",
+        sched_date_sub: "Elige el Día *",
+        sched_time_sub: "Bloque de Hora / Turno *",
+        slot_day1: "8:00 AM – 10:30 AM (Bloque 1 — Mañana)",
+        slot_day2: "10:30 AM – 1:00 PM (Bloque 2 — Media Mañana)",
+        slot_day3: "1:00 PM – 3:00 PM (Bloque 3 — Tarde)",
+        slot_day4: "3:00 PM – 5:00 PM (Bloque 4 — Cierre 5:00 PM)",
+        slot_night: "🌙 Turno Nocturno Comercial (Después de 6:00 PM — Sin gente)",
+        slot_early: "🌅 Madrugada Comercial (5:30 AM – 8:00 AM — Antes de abrir)",
+        slot_weekend: "📅 Fin de Semana (Sábado / Domingo — Sin tráfico peatonal)",
+        sched_note_day: "☀️ Ruta Diurna (8:00 AM – 5:00 PM): Limitada a máximo 3–4 trabajos por día para garantizar puntualidad total.",
+        modal_shift_night: "🌙 Nocturno / Cierre de Plaza (Después de 6 PM — Sin gente)",
+        modal_shift_wknd: "📅 Fin de Semana (Sábado o Domingo — Sin clientes)",
+        modal_shift_early: "🌅 Madrugada Antes de Abrir (5:30 AM – 8:00 AM)",
+        modal_shift_day: "☀️ Horario Diurno Normal (8:00 AM – 5:00 PM)",
         form_submit_btn: "Reservar Mi Presupuesto y Recibir Confirmación",
         diff_eyebrow: "La Diferencia Profesional",
         diff_title: "Por Qué Dueños de Casas y Administradores Contratan a un Especialista en Cristales y Lavado a Presión",
@@ -1081,6 +1137,10 @@
           paneSlider.max = prof.sliderMax;
           paneSlider.value = state.panes;
         }
+      }
+      const timeSel = document.getElementById('preferredTimeSelect');
+      if (timeSel && state.propType === 'pressure') {
+        timeSel.value = (tier === 'small') ? 'day_8_1030' : 'night_after_6pm';
       }
       updateSizeTabUI();
       calculateQuote();
@@ -1316,6 +1376,59 @@
         }
       }
 
+      // Update Smart Schedule UI (Daytime 8am-5pm vs Commercial Night/Weekend Off-Hours)
+      const optDay = document.getElementById('optGroupDay');
+      const optComm = document.getElementById('optGroupComm');
+      if (optDay) {
+        optDay.label = isEs
+          ? 'Ruta Diurna (8:00 AM – 5:00 PM • Máx. 3–4 por día)'
+          : 'Daytime Route (8:00 AM – 5:00 PM • Max 4/Day)';
+      }
+      if (optComm) {
+        optComm.label = isEs
+          ? 'Especial Comercial / Plazas / Pressure Wash (Sin Gente)'
+          : 'Commercial / Plaza / Pressure Wash (Zero Foot Traffic)';
+      }
+
+      const isCommOrPlaza = (
+        state.propType === 'storefront' ||
+        state.propType === 'office' ||
+        (state.propType === 'pressure' && state.sizeTier !== 'small') ||
+        (state.includePressure && state.pressureScope === 'commercial')
+      );
+      const isNightRecommended = (
+        (state.propType === 'storefront' && state.includePressure) ||
+        (state.propType === 'pressure' && state.sizeTier !== 'small') ||
+        (state.includePressure && state.pressureScope === 'commercial')
+      );
+
+      const schedNoteEl = document.getElementById('scheduleSmartNote');
+      const capBadgeEl = document.getElementById('dailyCapBadge');
+      if (schedNoteEl && capBadgeEl) {
+        if (isNightRecommended) {
+          capBadgeEl.className = 'text-[10px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full';
+          capBadgeEl.textContent = isEs ? '🌙 Turno Nocturno / Fin de Semana' : '🌙 Night / Weekend Available';
+          schedNoteEl.className = 'text-[11px] text-amber-200 leading-snug bg-amber-950/40 border border-amber-500/30 rounded-lg px-2.5 py-1.5';
+          schedNoteEl.textContent = isEs
+            ? '🌙 Lavado a Presión en Plazas / Comercios: Recomendamos el Turno Nocturno (después de 6:00 PM) o Fin de Semana cuando no hay clientes ni autos.'
+            : '🌙 Commercial & Plaza Pressure Washing: We recommend Night / After-Hours (after 6:00 PM) or Weekends when parking lots and walkways are empty.';
+        } else if (isCommOrPlaza) {
+          capBadgeEl.className = 'text-[10px] font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/40 px-2 py-0.5 rounded-full';
+          capBadgeEl.textContent = isEs ? '🏢 Horario Comercial Flexible' : '🏢 Commercial Shifts Ready';
+          schedNoteEl.className = 'text-[11px] text-sky-200 leading-snug bg-sky-950/40 border border-sky-500/30 rounded-lg px-2.5 py-1.5';
+          schedNoteEl.textContent = isEs
+            ? '🏢 Para locales, plazas y oficinas puedes elegir horario diurno (8am–5pm) o turnos sin gente (Madrugada 5:30am, Noche >6pm o Fin de Semana).'
+            : '🏢 For plazas, storefronts & offices, choose standard daytime (8am–5pm) or zero-traffic shifts (Early 5:30am, Night >6pm, or Weekends).';
+        } else {
+          capBadgeEl.className = 'text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full';
+          capBadgeEl.textContent = isEs ? 'Máx. 3–4 Trabajos/Día (8am–5pm)' : 'Max 3–4 Jobs/Day (8am–5pm)';
+          schedNoteEl.className = 'text-[11px] text-slate-300 leading-snug bg-slate-950/80 border border-slate-800 rounded-lg px-2.5 py-1.5';
+          schedNoteEl.textContent = isEs
+            ? '☀️ Ruta Diurna (8:00 AM – 5:00 PM): Limitada a máximo 3–4 trabajos por día para garantizar puntualidad. (Noche y Fin de Semana disponibles para comercios).'
+            : '☀️ Daytime route: Limited to 3–4 jobs per day between 8:00 AM and 5:00 PM for guaranteed punctuality. (Night & Weekend available for commercial).';
+        }
+      }
+
       if (!hasWindows) {
         if (total === 0) {
           document.getElementById('minimumNotice').textContent = isEs
@@ -1392,6 +1505,16 @@
           state.includeScreens = true;
           document.getElementById('freqSelect').value = '1';
           state.freqMultiplier = 1.0;
+        }
+      }
+      const timeSel = document.getElementById('preferredTimeSelect');
+      if (timeSel) {
+        if (prop === 'storefront') {
+          timeSel.value = state.includePressure ? 'night_after_6pm' : 'early_530_8am';
+        } else if (prop === 'pressure' && state.sizeTier !== 'small') {
+          timeSel.value = 'night_after_6pm';
+        } else {
+          timeSel.value = 'day_8_1030';
         }
       }
       calculateQuote();
@@ -1507,6 +1630,10 @@
       document.getElementById('chkPressure').addEventListener('change', (e) => {
         state.includePressure = e.target.checked;
         document.getElementById('pressureScopeWrap').classList.toggle('hidden', !e.target.checked);
+        const timeSel = document.getElementById('preferredTimeSelect');
+        if (e.target.checked && timeSel && (state.propType === 'storefront' || state.pressureScope === 'commercial')) {
+          timeSel.value = 'night_after_6pm';
+        }
         calculateQuote();
       });
 
@@ -1533,6 +1660,9 @@
         const name = document.getElementById('clientNameInput').value.trim();
         const phone = document.getElementById('clientPhoneInput').value.trim();
         const zip = document.getElementById('clientZipInput').value.trim();
+        const prefDate = document.getElementById('preferredDateInput').value;
+        const timeSelEl = document.getElementById('preferredTimeSelect');
+        const prefTimeText = timeSelEl.options[timeSelEl.selectedIndex].text;
         const price = document.getElementById('totalPriceDisplay').textContent;
         const zoneText = document.getElementById('zoneSelect').options[document.getElementById('zoneSelect').selectedIndex].text;
         const freqText = document.getElementById('freqSelect').options[document.getElementById('freqSelect').selectedIndex].text;
@@ -1548,6 +1678,8 @@
           Customer_Name: name,
           Customer_Phone: phone,
           Property_Zip_Suburb: zip,
+          Preferred_Date: prefDate,
+          Preferred_Time_Window: prefTimeText,
           Estimated_Total: price,
           Property_Type: state.propType,
           Window_Panes: (state.includeWindows && state.panes > 0) ? state.panes : '0 (No Windows - Standalone Gutter/Pressure Service)',
@@ -1574,9 +1706,9 @@
         const banner = document.getElementById('bookingSuccessBanner');
         banner.classList.remove('hidden');
         if (state.lang === 'es') {
-          banner.innerHTML = '<strong>✓ ¡Presupuesto Asegurado (' + price + ')!</strong> Gracias, ' + name + '. Hemos enviado los detalles a nuestro equipo y te contactaremos al <strong>' + phone + '</strong> (' + zip + '). ¿Dudas? Llama o envía texto al <strong>(630) 984-1673</strong> o escribe a <strong>windycityclear@gmail.com</strong>.';
+          banner.innerHTML = '<strong>✓ ¡Cita y Presupuesto Reservados (' + price + ')!</strong> Gracias, ' + name + '. Fecha solicitada: <strong>' + prefDate + '</strong> en horario <strong>' + prefTimeText + '</strong>. Te confirmaremos al <strong>' + phone + '</strong> (' + zip + '). ¿Dudas? Llama o envía texto al <strong>(630) 984-1673</strong>.';
         } else {
-          banner.innerHTML = '<strong>✓ Estimate Locked In (' + price + ')!</strong> Thank you, ' + name + '. Your quote details have been sent to our dispatch team and we will contact you at <strong>' + phone + '</strong> (' + zip + '). Questions? Call/Text <strong>(630) 984-1673</strong> or email <strong>windycityclear@gmail.com</strong>.';
+          banner.innerHTML = '<strong>✓ Estimate & Slot Reserved (' + price + ')!</strong> Thank you, ' + name + '. Requested slot: <strong>' + prefDate + '</strong> at <strong>' + prefTimeText + '</strong>. We will confirm via text/call at <strong>' + phone + '</strong> (' + zip + '). Questions? Call/Text <strong>(630) 984-1673</strong>.';
         }
         submitBtn.disabled = false;
         submitBtn.innerHTML = origBtnHtml;
@@ -1597,6 +1729,8 @@
         const address = document.getElementById('commAddressInput').value.trim();
         const phone = document.getElementById('commPhoneInput').value.trim();
         const propType = document.getElementById('commTypeSelect').value;
+        const commDate = document.getElementById('commDateInput').value;
+        const commShift = document.getElementById('commShiftSelect').value;
 
         try {
           await fetch("https://api.web3forms.com/submit", {
@@ -1609,7 +1743,9 @@
               Company_Name: company,
               Building_Address: address,
               Direct_Phone: phone,
-              Property_Category: propType
+              Property_Category: propType,
+              Preferred_Date: commDate,
+              Preferred_Commercial_Shift: commShift
             })
           });
         } catch (err) {
@@ -1643,6 +1779,23 @@
         });
         calculateQuote();
       });
+
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const yyyy = tomorrow.getFullYear();
+      const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const dd = String(tomorrow.getDate()).padStart(2, '0');
+      const minDateStr = `${yyyy}-${mm}-${dd}`;
+      const prefDateEl = document.getElementById('preferredDateInput');
+      if (prefDateEl) {
+        prefDateEl.min = minDateStr;
+        prefDateEl.value = minDateStr;
+      }
+      const commDateEl = document.getElementById('commDateInput');
+      if (commDateEl) {
+        commDateEl.min = minDateStr;
+        commDateEl.value = minDateStr;
+      }
 
       calculateQuote();
     }
